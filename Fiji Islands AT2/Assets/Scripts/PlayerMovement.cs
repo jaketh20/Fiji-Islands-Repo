@@ -26,3 +26,4 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(-sidewaysForce * Time.deltaTime, 0, 0);
         }
 }
+}
