@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,12 +9,14 @@ public class PlayerController : MonoBehaviour
     public float speed = 0;
     
     private Rigidbody rb;
+    private int count;
     private float movementX;
     private float movementY;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        count = 0;
     }
 
     void OnMove(InputValue movementValue)
@@ -29,5 +32,14 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = new(movementX, 0.0f, movementY);
 
         rb.AddForce(movement * speed);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("PickUp"))
+        {
+            other.gameObject.SetActive(false);
+            count += 1;
+        }
     }
 }
