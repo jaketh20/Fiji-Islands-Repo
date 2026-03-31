@@ -10,11 +10,15 @@ public class PlayerController : MonoBehaviour
     public float speed = 0;
     public TextMeshProUGUI countText;
     public GameObject winTextObject;
-    
+
     private Rigidbody rb;
     private int count;
     private float movementX;
     private float movementY;
+
+    // Defining Jump Variables
+    public float jumpPower = 5f;
+    private bool isGrounded;
 
     void Start()
     {
@@ -24,13 +28,23 @@ public class PlayerController : MonoBehaviour
         winTextObject.SetActive(false);
     }
 
-    void OnMove(InputValue movementValue)
+    private void OnMove(InputValue movementValue)
     {
         Vector2 movementVector = movementValue.Get<Vector2>();
 
         movementX = movementVector.x;
         movementY = movementVector.y;
     }
+
+    private void OnJump(InputValue jump)
+    {
+        if (jump.isPressed && isGrounded == true)
+        {
+            rb.AddForce(Vector3.up * jumpPower);
+            isGrounded = false;
+        }
+    }
+
 
     void SetCountText()
     {
@@ -51,12 +65,19 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        // Enemy Collision
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Destroy(gameObject);
 
             winTextObject.gameObject.SetActive(true);
             winTextObject.GetComponent<TextMeshProUGUI>().text = "You Lose!";
+        }
+
+        //Landing On Ground
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
         }
     }
 
