@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.ConstrainedExecution;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -72,6 +73,7 @@ public class PlayerController : MonoBehaviour
 
             winTextObject.gameObject.SetActive(true);
             winTextObject.GetComponent<TextMeshProUGUI>().text = "You Lose!";
+            StartCoroutine(WaitAndReset(3f));
         }
 
         //Landing On Ground
@@ -89,5 +91,11 @@ public class PlayerController : MonoBehaviour
             count += 1;
             SetCountText();
         }
+    }
+
+    private IEnumerator WaitAndReset(float count)
+    {
+        yield return new WaitForSeconds(count);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
