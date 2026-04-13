@@ -477,7 +477,6 @@ GameObject:
   m_Component:
   - component: {fileID: 586994250}
   - component: {fileID: 586994249}
-  - component: {fileID: 586994248}
   - component: {fileID: 586994251}
   - component: {fileID: 586994252}
   m_Layer: 0
@@ -487,14 +486,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &586994248
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 586994247}
-  m_Enabled: 1
 --- !u!20 &586994249
 Camera:
   m_ObjectHideFlags: 0
@@ -1431,6 +1422,7 @@ GameObject:
   - component: {fileID: 2045886605}
   - component: {fileID: 2045886604}
   - component: {fileID: 2045886610}
+  - component: {fileID: 2045886611}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1600,7 +1592,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77489beb718ccd54e8adfdac571ffb9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  clip: {fileID: 8300000, guid: 82a4e3df4fded4048939f6cba688d30a, type: 3}
   speed: 10
+--- !u!81 &2045886611
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2045886603}
+  m_Enabled: 1
 --- !u!1 &2061986174
 GameObject:
   m_ObjectHideFlags: 0

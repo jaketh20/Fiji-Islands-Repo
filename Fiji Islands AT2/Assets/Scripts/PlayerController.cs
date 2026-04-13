@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private float movementX;
     private float movementY;
+    [SerializeField] public AudioClip clip;
 
     public float speed = 0;
 
@@ -32,6 +33,9 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("PickUp"))
         {
+            //there HAS to be a better way to do this, surely
+            AudioSource.PlayClipAtPoint(clip, transform.position);
+
             other.gameObject.SetActive(false);
         }
     }
