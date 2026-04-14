@@ -6,13 +6,16 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private float movementX;
     private float movementY;
-    [SerializeField] public AudioClip clip;
-    float time = 0.0f;
-    GameObject plusOne;
-    Vector3 oldPlusOnePos;
-    bool pickedUp = false;
+
+    private float time = 0.0f;
+    private GameObject plusOne;
+    private Vector3 oldPlusOnePos;
+    private bool pickedUp = false;
+
+    private int count;
 
     public float speed = 0;
+    [SerializeField] public AudioClip clip;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,6 +23,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         plusOne = GameObject.FindGameObjectWithTag("PlusOne");
         oldPlusOnePos = plusOne.transform.position;
+        count = 0;
     }
 
     void OnMove(InputValue movementValue)
@@ -57,6 +61,8 @@ public class PlayerController : MonoBehaviour
             pickedUp = true;
 
             other.gameObject.SetActive(false);
+
+            count += 1;
         }
     }
 }
