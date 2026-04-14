@@ -2232,6 +2232,7 @@ MonoBehaviour:
   speed: 10
   clip: {fileID: 8300000, guid: 82a4e3df4fded4048939f6cba688d30a, type: 3}
   countText: {fileID: 1472131660}
+  winTextObject: {fileID: 1893681579}
 --- !u!81 &2045886611
 AudioListener:
   m_ObjectHideFlags: 0

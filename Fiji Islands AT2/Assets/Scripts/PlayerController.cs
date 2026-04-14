@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 0;
     [SerializeField] public AudioClip clip;
     public TextMeshProUGUI countText;
+    public GameObject winTextObject;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -27,6 +28,7 @@ public class PlayerController : MonoBehaviour
         oldPlusOnePos = plusOne.transform.position;
         count = 0;
         SetCountText();
+        winTextObject.SetActive(false);
     }
 
     void OnMove(InputValue movementValue)
@@ -66,6 +68,7 @@ public class PlayerController : MonoBehaviour
             other.gameObject.SetActive(false);
 
             count += 1;
+            time = 0.0f;
             SetCountText();
         }
     }
@@ -73,5 +76,9 @@ public class PlayerController : MonoBehaviour
     void SetCountText()
     {
         countText.text = "Count: " + count.ToString();
+        if (count >= 8)
+        {
+            winTextObject.SetActive(true);
+        }
     }
 }
