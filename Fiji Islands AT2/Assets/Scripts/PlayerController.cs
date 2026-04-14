@@ -7,6 +7,10 @@ public class PlayerController : MonoBehaviour
     private float movementX;
     private float movementY;
     [SerializeField] public AudioClip clip;
+    float time = 0.0f;
+    GameObject plusOne;
+    Vector3 oldPlusOnePos;
+    bool pickedUp = false;
 
     public float speed = 0;
 
@@ -14,6 +18,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        plusOne = GameObject.FindGameObjectWithTag("PlusOne");
+        oldPlusOnePos = plusOne.transform.position;
     }
 
     void OnMove(InputValue movementValue)
@@ -27,6 +33,18 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 movement = new Vector3(movementX, 0.0f, movementY);
         rb.AddForce(movement * speed);
+
+        if (time < 1.0f & pickedUp)
+        {
+            time += Time.deltaTime;
+            plusOne.transform.position += new Vector3(0,0.01f,0);
+        }
+        else
+        {
+            plusOne.transform.position = oldPlusOnePos;
+            time = 0.0f;
+            pickedUp = false;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -35,6 +53,8 @@ public class PlayerController : MonoBehaviour
         {
             //there HAS to be a better way to do this, surely
             AudioSource.PlayClipAtPoint(clip, transform.position);
+            plusOne.transform.position = other.transform.position;
+            pickedUp = true;
 
             other.gameObject.SetActive(false);
         }
