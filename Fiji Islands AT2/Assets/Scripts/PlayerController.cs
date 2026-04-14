@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class PlayerController : MonoBehaviour
 
     public float speed = 0;
     [SerializeField] public AudioClip clip;
+    public TextMeshProUGUI countText;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
