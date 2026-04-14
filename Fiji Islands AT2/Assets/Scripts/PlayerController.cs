@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
         plusOne = GameObject.FindGameObjectWithTag("PlusOne");
         oldPlusOnePos = plusOne.transform.position;
         count = 0;
+        SetCountText();
     }
 
     void OnMove(InputValue movementValue)
@@ -65,6 +66,12 @@ public class PlayerController : MonoBehaviour
             other.gameObject.SetActive(false);
 
             count += 1;
+            SetCountText();
         }
+    }
+
+    void SetCountText()
+    {
+        countText.text = "Count: " + count.ToString();
     }
 }
