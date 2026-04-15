@@ -6,13 +6,22 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForce;
     [SerializeField] private float speed;
     [SerializeField] private bool isGrounded;
-    private Vector2 movement;
+    [SerializeField] private Material redMat;
+    [SerializeField] private Material greenMat;
+    [SerializeField] private float camSpeed;
+    [SerializeField] private Camera cam;
+    [SerializeField] private Rigidbody camRb;
+
+    private Vector3 movement;
     private Vector2 moveInput;
+    private Vector2 mouseMovement;
     private Rigidbody rb;
+    private Renderer rend;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rend = GetComponent<Renderer>();
     }
 
 
@@ -25,11 +34,38 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void OnLook(InputValue value)
+    {
+        if (value != null)
+        {
+            mouseMovement = value.Get<Vector2>();
+
+            float mouseMovementX = mouseMovement.x;
+            float mouseMovementY = mouseMovement.y;
+
+        }
+    }
+
     void OnJump(InputValue value)
     {
         if (value.isPressed && isGrounded != false)
         {
-            rb.AddForce(Vector3.up, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
+    }
+
+    void OnChangeColour(InputValue value)
+    {
+        if (value != null)
+        {
+            if (rend.sharedMaterial == redMat)
+            {
+                rend.sharedMaterial = greenMat;
+            }
+            else if (rend.sharedMaterial == greenMat)
+            {
+                rend.sharedMaterial = redMat;
+            }
         }
     }
 
@@ -40,8 +76,10 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 movement = new Vector3(moveInput.x, rb.linearVelocity.y, moveInput.y);
+        movement = new Vector3(moveInput.x, 0, moveInput.y);
         rb.MovePosition(transform.position + movement * speed * Time.deltaTime);
+
+        // camRb.MoveRotation()
     }
 
 }
