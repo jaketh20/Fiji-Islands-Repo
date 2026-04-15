@@ -3,10 +3,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    private Vector2 movement;
+    [SerializeField] private float jumpForce;
     [SerializeField] private float speed;
-    private Rigidbody rb;
+    [SerializeField] private bool isGrounded;
+    private Vector2 movement;
     private Vector2 moveInput;
+    private Rigidbody rb;
 
     void Start()
     {
@@ -23,11 +25,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void OnJump(InputValue value)
+    {
+        if (value.isPressed && isGrounded != false)
+        {
+            rb.AddForce(Vector3.up, ForceMode.Impulse);
+        }
+    }
+
+    private void OnCollisionStay(Collision collision) => isGrounded = true;
+    private void OnCollisionExit(Collision collision) => isGrounded = false;
+
     // Make other button functions here
 
     void FixedUpdate()
     {
-        Vector3 movement = new Vector3(moveInput.x, 0, moveInput.y);
+        Vector3 movement = new Vector3(moveInput.x, rb.linearVelocity.y, moveInput.y);
         rb.MovePosition(transform.position + movement * speed * Time.deltaTime);
     }
 
