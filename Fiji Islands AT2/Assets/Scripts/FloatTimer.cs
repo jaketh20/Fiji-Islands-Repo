@@ -1,8 +1,10 @@
+using TMPro;
 using UnityEngine;
 
 public class FloatTimer : MonoBehaviour
 {
     float timer;
+    public TextMeshPro text;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -13,6 +15,7 @@ public class FloatTimer : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
+        text.text = "Timer: " + timer.ToString();
         if (timer > 10.0f)
         {
             gameObject.SetActive(false);
